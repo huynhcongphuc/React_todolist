@@ -13,7 +13,7 @@ function App() {
   const [textinput, setTextinput] = useState("");
   useEffect(() => {
     const storagedtodolist = localStorage.getItem(TODO_APP_Storage_key);
-    if (storagedtodolist){
+    if (storagedtodolist) {
       setTodolist(JSON.parse(storagedtodolist));
     }
   }, [])
@@ -26,23 +26,24 @@ function App() {
 
   const onTextinputChange = useCallback((e) => {
     setTextinput(e.target.value);
-  },[]);
+  }, []);
 
   const onAddBtnClick = useCallback((e) => {
     // them gia tri text inputs vao DS todolist
-    setTodolist([{ id: v4(), name: textinput, isComplete: false },...todolist ]);
+    setTodolist([{ id: v4(), name: textinput, isComplete: false }, ...todolist]);
     setTextinput('');
-  
-  },[textinput,todolist]);
+
+  }, [textinput, todolist]);
 
 
   const onCheckBtnClick = useCallback((id) => {
-    setTodolist(prevState => prevState.map(todo => todo.id === id?{...todo, isComplete: true}:todo));
-  },[]);
+    setTodolist(prevState => prevState.map(todo => todo.id === id ? { ...todo, isComplete: true } : todo));
+  }, []);
 
   return (
     <>
-      <h3 style={{width:"600px"}}>Danh sách cần làm</h3>
+      <h1 style={{ width: "600px", color: "red" }}>Ứng dụng To do List</h1>
+      <h3>Danh sách cần làm</h3>
       <Textfield
         name="add-todo"
         placeholder="Thêm việc cần làm..."
@@ -58,7 +59,7 @@ function App() {
         value={textinput}
         onChange={onTextinputChange}
       ></Textfield>
-      <Todolist todoList={todolist} onCheckBtnClick={onCheckBtnClick}/>
+      <Todolist todoList={todolist} onCheckBtnClick={onCheckBtnClick} />
     </>
   );
 }
